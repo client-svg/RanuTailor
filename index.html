@@ -76,6 +76,27 @@ body.dark .modalhead{background:#3b2c38}
 body.dark input,body.dark select,body.dark textarea{background:#3b2c38;color:var(--ink)}
 body.dark .soft{background:#3b2c38}
 body.dark .notes{color:#d8c3cd}
+/* Larger, easier-to-see design photos on phones */
+@media(max-width:700px){
+  .grid{grid-template-columns:minmax(0,1fr);gap:16px}
+  .visual{height:clamp(260px,72vw,390px)}
+  .card{border-radius:17px}
+  .cardbody{padding:14px}
+  .card h3{font-size:20px;line-height:1.25}
+  .meta{font-size:13px}
+  .notes{font-size:13px;line-height:1.5}
+  .swatch{width:18px;height:18px}
+  .cardfoot{flex-direction:row;gap:8px}
+  .cardfoot button{font-size:12px;padding:9px 12px}
+}
+@media(max-width:380px){
+  .grid{grid-template-columns:minmax(0,1fr);gap:14px}
+  .visual{height:clamp(250px,78vw,330px)}
+  .cardbody{padding:12px}
+  .card h3{font-size:19px}
+  .cardfoot{flex-direction:row}
+  .cardfoot button{width:auto;flex:1 1 0}
+}
 </style>
 </head>
 <body>

@@ -17,6 +17,7 @@ button{border:0;border-radius:12px;padding:10px 15px;font:inherit;font-weight:60
 button:hover{filter:brightness(.97)}
 .soft{background:#fff;color:var(--rose);border:1px solid var(--line)}
 .danger{background:#fff0f0;color:#a43a49;border:1px solid #f3d3d6}
+.admin-only{display:none!important}body.admin-mode .admin-only{display:inline-flex!important}
 main{max-width:1160px;margin:0 auto;padding:26px 20px 60px}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px}
 .stat{background:#fff;border:1px solid var(--line);border-radius:16px;padding:15px 18px}
@@ -101,7 +102,7 @@ body.dark .notes{color:#d8c3cd}
 </head>
 <body>
 <header><div class="top"><div><div class="brand">✦ RANU LADIES TAILOR</div><h1>Blouse Atelier</h1><p>Explore 70+ blouse ideas, add real photo references, save favourites and keep tailoring notes in one place.</p></div>
-<div class="actions"><button class="soft" id="themeBtn">☾ Theme</button><button class="soft" id="exportBtn">Export</button><button class="soft" id="importBtn">Import</button><button class="soft" id="addSectionBtn">＋ Add section</button><button id="addBtn">＋ Add design</button></div></div></header>
+<div class="actions"><button class="soft" id="adminBtn">🔒 Admin login</button><button class="soft" id="themeBtn">☾ Theme</button><button class="soft admin-only" id="exportBtn">Export</button><button class="soft admin-only" id="importBtn">Import</button><button class="soft admin-only" id="addSectionBtn">＋ Add section</button><button class="admin-only" id="addBtn">＋ Add design</button></div></div></header>
 
 <main>
 <div class="stats"><div class="stat"><b id="total">0</b><span>Designs saved</span></div><div class="stat"><b id="favCount">0</b><span>Favourite styles</span></div><div class="stat"><b id="colorCount">0</b><span>Colours</span></div></div>
@@ -144,6 +145,29 @@ body.dark .notes{color:#d8c3cd}
 const $=id=>document.getElementById(id);
 const KEY="blouseAtelierV4";
 const HEX=/^#[0-9a-fA-F]{6}$/;
+
+// FRONT-END DEMO LOCK ONLY: change this password before use.
+// The password is visible in page source; this is not secure server authentication.
+const ADMIN_PASSWORD = "Ranu@12345";
+let adminMode = false;
+function requireAdmin(){
+  if(adminMode) return true;
+  alert("Admin access required. Please log in first.");
+  return false;
+}
+function setAdminMode(enabled){
+  adminMode = enabled;
+  document.body.classList.toggle("admin-mode", enabled);
+  $("adminBtn").textContent = enabled ? "🔓 Admin logout" : "🔒 Admin login";
+  render();
+}
+$("adminBtn").onclick=()=>{
+  if(adminMode){ setAdminMode(false); return; }
+  const entered = prompt("Enter the website admin password:");
+  if(entered === null) return;
+  if(entered === ADMIN_PASSWORD){ setAdminMode(true); alert("Admin mode enabled."); }
+  else alert("Incorrect password.");
+};
 
 /* ---------- Drawn preview, used when a design has no photo ---------- */
 const SLEEVE={Sleeveless:0,Cap:14,Short:28,Puff:28,Elbow:48,"Three-quarter":66,Full:88};
@@ -274,7 +298,7 @@ function render(){
  if(sort==="color")arr.sort((a,b)=>a.color.localeCompare(b.color)||a.name.localeCompare(b.name));
  if(sort==="favorites")arr.sort((a,b)=>Number(b.favorite)-Number(a.favorite));
  $("shown").textContent=`Showing ${arr.length} of ${designs.length}`;
- $("collection").innerHTML=arr.length?arr.map(d=>`<article class="card"><div class="visual">${imgFor(d)?`<img src="${esc(imgFor(d))}" data-photo-id="${d.id}" loading="lazy" decoding="async" alt="${esc(d.name)}" tabindex="0" role="button" aria-label="View ${esc(d.name)} full screen" onerror="this.remove();this.parentElement.classList.add('no-photo')">`:`<div class="photo-empty"><span>✦</span><b>Photo not added</b><small>Edit this design to upload its real reference photo</small></div>`}<span class="tag">${esc(d.section||"Blouse")} · ${esc(d.occasion||"Design")}</span><button class="heart" title="Toggle favourite" data-fav="${d.id}">${d.favorite?"♥":"♡"}</button></div><div class="cardbody"><h3>${esc(d.name)}</h3><div class="meta">${esc(d.style)} · ${esc(d.sleeve)} sleeve</div><div class="swatches"><span class="swatch" style="background:${HEX.test(d.hex)?d.hex:"#ccc"}"></span><span class="meta">${esc(d.color)}${d.fabric?" · "+esc(d.fabric):""}</span></div>${d.notes?`<p class="notes">${esc(d.notes)}</p>`:""}${d.price?`<p class="meta">Estimated tailoring: ₹${Number(d.price).toLocaleString("en-IN")}</p>`:""}<div class="cardfoot"><button class="soft" data-edit="${d.id}">Edit</button><button class="soft" data-copy="${d.id}">Duplicate</button><button class="danger" data-delete="${d.id}">Delete</button></div></div></article>`).join(""):'<div class="empty">No matching designs. Try clearing filters or add a new design.</div>';
+ $("collection").innerHTML=arr.length?arr.map(d=>`<article class="card"><div class="visual">${imgFor(d)?`<img src="${esc(imgFor(d))}" data-photo-id="${d.id}" loading="lazy" decoding="async" alt="${esc(d.name)}" tabindex="0" role="button" aria-label="View ${esc(d.name)} full screen" onerror="this.remove();this.parentElement.classList.add('no-photo')">`:`<div class="photo-empty"><span>✦</span><b>Photo not added</b><small>Edit this design to upload its real reference photo</small></div>`}<span class="tag">${esc(d.section||"Blouse")} · ${esc(d.occasion||"Design")}</span>${adminMode?`<button class="heart" title="Toggle favourite" data-fav="${d.id}">${d.favorite?"♥":"♡"}</button>`:""}</div><div class="cardbody"><h3>${esc(d.name)}</h3><div class="meta">${esc(d.style)} · ${esc(d.sleeve)} sleeve</div><div class="swatches"><span class="swatch" style="background:${HEX.test(d.hex)?d.hex:"#ccc"}"></span><span class="meta">${esc(d.color)}${d.fabric?" · "+esc(d.fabric):""}</span></div>${d.notes?`<p class="notes">${esc(d.notes)}</p>`:""}${d.price?`<p class="meta">Estimated tailoring: ₹${Number(d.price).toLocaleString("en-IN")}</p>`:""}${adminMode?`<div class="cardfoot"><button class="soft" data-edit="${d.id}">Edit</button><button class="soft" data-copy="${d.id}">Duplicate</button><button class="danger" data-delete="${d.id}">Delete</button></div>`:""}</div></article>`).join(""):'<div class="empty">No matching designs. Try clearing filters or add a new design.</div>';
 }
 
 /* ---------- Add / edit ---------- */
@@ -288,7 +312,7 @@ function openEditor(d=null){
  $("dphotourl").value=d&&/^https?:/i.test(d.photo||"")?d.photo:"";
  $("editor").showModal();
 }
-$("addBtn").onclick=()=>openEditor();
+$("addBtn").onclick=()=>{if(requireAdmin())openEditor();};
 $("cancelBtn").onclick=()=>$("editor").close();
 $("designForm").onsubmit=e=>{
  e.preventDefault();
@@ -336,7 +360,7 @@ $("exportBtn").onclick=()=>{
  const blob=new Blob([JSON.stringify({designs,nextId,sections},null,2)],{type:"application/json"}),a=document.createElement("a");
  a.href=URL.createObjectURL(blob);a.download="blouse-atelier-backup.json";a.click();URL.revokeObjectURL(a.href);
 };
-$("importBtn").onclick=()=>$("importFile").click();
+$("importBtn").onclick=()=>{if(requireAdmin())$("importFile").click();};
 $("importFile").onchange=e=>{
  const f=e.target.files[0];if(!f)return;
  const r=new FileReader();

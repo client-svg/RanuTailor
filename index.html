@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Blouse Atelier — Design Book</title>
+<style>
+:root{--bg:#fff9f7;--paper:#fff;--ink:#35252d;--muted:#88727c;--line:#f0dfe5;--rose:#b64d72;--shadow:0 12px 35px #6e35420d}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 "Segoe UI",system-ui,sans-serif}
+header{background:linear-gradient(120deg,#fff0f4,#fffaf2 65%,#f8e8ef);padding:36px max(22px,calc((100% - 1160px)/2));border-bottom:1px solid var(--line)}
+.top{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
+.brand{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--rose);font-weight:700}
+h1{font-family:Georgia,serif;font-size:clamp(34px,5vw,56px);font-weight:500;line-height:1.05;margin:10px 0;color:#5b263c}
+header p{color:var(--muted);max-width:560px;margin:12px 0 0}
+.actions{display:flex;gap:8px;flex-wrap:wrap}
+button{border:0;border-radius:12px;padding:10px 15px;font:inherit;font-weight:600;cursor:pointer;background:var(--rose);color:#fff;transition:.2s}
+button:hover{filter:brightness(.97)}
+.soft{background:#fff;color:var(--rose);border:1px solid var(--line)}
+.danger{background:#fff0f0;color:#a43a49;border:1px solid #f3d3d6}
+main{max-width:1160px;margin:0 auto;padding:26px 20px 60px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px}
+.stat{background:#fff;border:1px solid var(--line);border-radius:16px;padding:15px 18px}
+.stat b{display:block;font:26px Georgia;color:var(--rose)}
+.stat span{font-size:12px;color:var(--muted);letter-spacing:.7px;text-transform:uppercase}
+.toolbar{background:#fff;border:1px solid var(--line);padding:14px;border-radius:18px;display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}
+.toolbar input,.toolbar select{flex:1;min-width:145px}
+input,select,textarea{font:inherit;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 12px;min-width:0}
+input:focus,select:focus,textarea:focus{outline:2px solid #e9b9cb;outline-offset:1px}
+.sectionhead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:26px 0 14px}
+.sectionhead h2{font:25px Georgia;color:#653349;margin:0}
+.sectionhead small{color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(245px,1fr));gap:18px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;min-width:0}
+.visual{height:175px;background:linear-gradient(135deg,#f9e8ee,#fff4e7);position:relative;overflow:hidden}
+.visual img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;cursor:zoom-in}.visual img:focus{outline:3px solid var(--rose);outline-offset:-3px}
+#lightbox{width:100vw;height:100dvh;max-width:none;max-height:none;margin:0;border:0;border-radius:0;background:#120d11;color:white;padding:0;overflow:hidden}
+#lightbox::backdrop{background:#120d11}
+.lightbox-inner{height:100%;display:flex;align-items:center;justify-content:center;position:relative;padding:56px 16px 54px}
+#lightboxImg{max-width:100%;max-height:100%;object-fit:contain}
+#lightboxClose{position:absolute;right:16px;top:14px;background:#ffffff22;color:#fff;border:1px solid #ffffff55;font-size:24px;width:46px;height:46px;padding:0;border-radius:50%}
+#lightboxCaption{position:absolute;bottom:14px;left:16px;right:16px;text-align:center;color:#fff;font-size:14px}
+.section-tools{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:0 0 14px}.section-tools select{min-width:170px;flex:1}
+.photo-empty{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:18px;color:#87546a;gap:5px;background:radial-gradient(circle at 50% 25%,#fff 0,#fbeaf0 55%,#f7e4eb 100%)}.photo-empty span{font-size:28px}.photo-empty b{font:18px Georgia}.photo-empty small{max-width:190px;font-size:11px;color:var(--muted)}.card{content-visibility:auto;contain-intrinsic-size:360px}
+.tag{position:absolute;left:12px;top:12px;background:#ffffffdf;color:#793e58;border-radius:20px;padding:5px 10px;font-size:11px;font-weight:700;z-index:1}
+.heart{position:absolute;right:10px;top:10px;border-radius:50%;padding:8px;background:#ffffffdc;color:#a34268;font-size:18px;line-height:1;z-index:1;border:0}
+.cardbody{padding:15px;display:flex;flex-direction:column;flex:1}
+.card h3{font:21px Georgia;margin:0 0 5px}
+.meta{color:var(--muted);font-size:13px}
+.swatches{display:flex;gap:7px;align-items:center;margin:10px 0}
+.swatch{width:19px;height:19px;border-radius:50%;border:1px solid #0002;flex:none}
+.notes{font-size:13px;margin:5px 0 12px;color:#69545e}
+.cardfoot{display:flex;gap:7px;margin-top:auto;flex-wrap:wrap}
+.cardfoot button{font-size:12px;padding:8px 11px;border-radius:9px}
+.empty{padding:40px;text-align:center;color:var(--muted);background:#fff;border:1px dashed var(--line);border-radius:18px;grid-column:1/-1}
+dialog{border:0;border-radius:22px;padding:0;width:min(680px,calc(100% - 24px));box-shadow:0 20px 80px #2c142b44;color:var(--ink);background:#fff}
+dialog::backdrop{background:#29132180}
+.modalhead{padding:22px 24px;background:#fff2f6;border-bottom:1px solid var(--line)}
+.modalhead h2{font:28px Georgia;margin:0}
+.formgrid{padding:22px;display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.field{display:grid;gap:5px;font-size:12px;color:var(--muted)}
+.field.full{grid-column:1/-1}
+.field textarea{resize:vertical}
+.modalactions{display:flex;justify-content:flex-end;gap:8px;padding:0 22px 22px}
+.footnote{text-align:center;color:var(--muted);font-size:12px;margin-top:28px}
+/* Phone-first layout: compact controls, two readable columns, safe-area spacing */
+@media(max-width:700px){
+ body{font-size:14px}header{padding:22px 15px}main{padding:16px 12px 36px}.top{align-items:flex-start}.actions{width:100%;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.actions button{min-height:42px;padding:9px 10px}.stats{gap:7px;margin-bottom:14px}.stat{padding:10px 9px;border-radius:12px}.stat b{font-size:21px}.stat span{font-size:10px;letter-spacing:.3px}.toolbar{padding:10px;gap:8px;border-radius:14px}.toolbar input{flex:1 1 100%;min-height:43px}.toolbar select{flex:1 1 calc(50% - 8px);min-width:0;min-height:42px}.toolbar button{flex:1 1 calc(50% - 8px);min-height:42px}.sectionhead{margin:18px 0 10px;align-items:flex-end}.sectionhead h2{font-size:22px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.visual{height:clamp(125px,38vw,190px)}.card{border-radius:14px}.cardbody{padding:10px}.card h3{font-size:16px;line-height:1.2}.meta{font-size:11px}.notes{font-size:12px;line-height:1.4;margin:5px 0 10px}.swatches{margin:7px 0;gap:5px}.swatch{width:15px;height:15px}.cardfoot{gap:5px}.cardfoot button{flex:1 1 auto;padding:8px 5px;font-size:11px}.heart{right:7px;top:7px;padding:7px}.tag{left:7px;top:7px;padding:4px 8px;font-size:10px}.formgrid{grid-template-columns:1fr;padding:16px}.modalhead{padding:18px}.modalactions{padding:0 16px 16px}.field input,.field select,.field textarea{width:100%;min-height:43px}dialog{max-height:90dvh;overflow:auto}
+}
+@media(max-width:380px){main{padding-left:9px;padding-right:9px}.grid{gap:8px}.visual{height:125px}.cardbody{padding:8px}.card h3{font-size:15px}.cardfoot{flex-direction:column}.cardfoot button{width:100%}.stat span{font-size:9px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important}}
+body.dark{--bg:#211821;--paper:#302530;--ink:#f8eaf0;--muted:#c1a8b5;--line:#4a3545;--rose:#d77b9e;--shadow:0 12px 35px #0002}
+body.dark header{background:linear-gradient(120deg,#3d2638,#302b2b)}
+body.dark h1,body.dark .sectionhead h2{color:#f3c6d8}
+body.dark .stat,body.dark .toolbar,body.dark .empty,body.dark dialog{background:var(--paper)}
+body.dark .modalhead{background:#3b2c38}
+body.dark input,body.dark select,body.dark textarea{background:#3b2c38;color:var(--ink)}
+body.dark .soft{background:#3b2c38}
+body.dark .notes{color:#d8c3cd}
+</style>
+</head>
+<body>
+<header><div class="top"><div><div class="brand">✦ RANU LADIES TAILOR</div><h1>Blouse Atelier</h1><p>Explore 70+ blouse ideas, add real photo references, save favourites and keep tailoring notes in one place.</p></div>
+<div class="actions"><button class="soft" id="themeBtn">☾ Theme</button><button class="soft" id="exportBtn">Export</button><button class="soft" id="importBtn">Import</button><button class="soft" id="addSectionBtn">＋ Add section</button><button id="addBtn">＋ Add design</button></div></div></header>
+
+<main>
+<div class="stats"><div class="stat"><b id="total">0</b><span>Designs saved</span></div><div class="stat"><b id="favCount">0</b><span>Favourite styles</span></div><div class="stat"><b id="colorCount">0</b><span>Colours</span></div></div>
+<div class="toolbar">
+<input id="search" placeholder="⌕ Search name, fabric, notes…">
+<select id="sectionFilter"><option value="">All sections</option></select>
+<select id="styleFilter"><option value="">All styles</option></select>
+<select id="colorFilter"><option value="">All colours</option></select>
+<select id="sort"><option value="recent">Recently added</option><option value="color">Colour A–Z</option><option value="name">Name A–Z</option><option value="favorites">Favourites first</option></select>
+<button class="soft" id="favFilter">♡ Favourites</button>
+<button class="soft" id="clearFilters">Reset</button>
+</div>
+<div class="sectionhead"><h2>Your design collection</h2><small id="shown"></small></div>
+<div id="collection" class="grid"></div>
+<p class="footnote">For reliable loading, add a real reference photo to each design using Edit. Photos you upload are resized and compressed for faster phone loading. Your designs are saved in this browser on this device. Export a backup before clearing browser data.</p>
+</main>
+
+<dialog id="editor"><form id="designForm">
+<div class="modalhead"><h2 id="modalTitle">Add a design</h2><p style="margin:5px 0 0;color:var(--muted)">Save the details you want your tailor to remember.</p></div>
+<div class="formgrid">
+<label class="field">Design name<input id="dname" required placeholder="e.g. Pearl sweetheart blouse"></label>
+<label class="field">Section<select id="dsection"></select></label>
+<label class="field">Neckline / style<select id="dstyle"><option>Boat neck</option><option>Round neck</option><option>V neck</option><option>Square neck</option><option>Sweetheart</option><option>High neck</option><option>Halter</option><option>Keyhole</option><option>Backless</option><option>Collar neck</option><option>Puff sleeve</option><option>Princess cut</option><option>Deep V</option><option>Off-shoulder</option><option>Other</option></select></label>
+<label class="field">Sleeve<select id="dsleeve"><option>Sleeveless</option><option>Cap</option><option>Short</option><option>Puff</option><option>Elbow</option><option>Three-quarter</option><option>Full</option><option>Cape</option></select></label>
+<label class="field">Occasion<select id="doccasion"><option>Everyday</option><option>Wedding</option><option>Festive</option><option>Party</option><option>Traditional</option><option>Office</option></select></label>
+<label class="field">Colour name<input id="dcolor" required placeholder="Wine, ivory, teal…"></label>
+<label class="field">Colour swatch<input id="dhex" type="color" value="#9b315b" style="height:42px;padding:4px"></label>
+<label class="field">Fabric<input id="dfabric" placeholder="Silk, velvet, cotton…"></label>
+<label class="field">Tailoring budget (₹)<input id="dprice" type="number" min="0" placeholder="Optional"></label>
+<label class="field full">Tailor notes<textarea id="dnotes" rows="3" placeholder="Back design, embroidery, padding, hooks, border…"></textarea></label>
+<label class="field full">Reference photo (upload, under 1.5 MB)<input id="dphoto" type="file" accept="image/*"></label>
+<label class="field full">Or paste a photo link<input id="dphotourl" placeholder="https://… (some websites block their images)"></label>
+</div>
+<div class="modalactions"><button type="button" class="soft" id="cancelBtn">Cancel</button><button type="submit">Save design</button></div>
+</form></dialog>
+<dialog id="lightbox" aria-label="Full screen design photo"><div class="lightbox-inner"><button id="lightboxClose" type="button" aria-label="Close photo">×</button><img id="lightboxImg" alt="Full size design photo"><div id="lightboxCaption"></div></div></dialog>
+<input type="file" id="importFile" accept="application/json" hidden>
+
+<script>
+const $=id=>document.getElementById(id);
+const KEY="blouseAtelierV4";
+const HEX=/^#[0-9a-fA-F]{6}$/;
+
+/* ---------- Drawn preview, used when a design has no photo ---------- */
+const SLEEVE={Sleeveless:0,Cap:14,Short:28,Puff:28,Elbow:48,"Three-quarter":66,Full:88};
+const NECK={
+ "Boat neck":"M130 56 Q160 68 190 56 Z",
+ "Round neck":"M143 56 Q160 84 177 56 Z",
+ "V neck":"M143 56 L160 98 L177 56 Z",
+ "Square neck":"M139 56 L139 84 L181 84 L181 56 Z",
+ "Sweetheart":"M134 56 Q136 82 148 80 Q156 80 160 72 Q164 80 172 80 Q184 82 186 56 Z",
+ "High neck":"",
+ "Halter":"M124 56 L146 56 L154 80 L124 100 Z M196 56 L174 56 L166 80 L196 100 Z",
+ "Keyhole":"M145 56 Q160 78 175 56 Z",
+ "Backless":"M134 56 Q160 138 186 56 Z",
+ "Collar neck":"M146 56 L160 84 L174 56 Z",
+ "Puff sleeve":"M143 56 Q160 80 177 56 Z",
+ "Princess cut":"M143 56 Q160 82 177 56 Z",
+ "Other":"M143 56 Q160 82 177 56 Z"
+};
+function makePhoto(hex,style,sleeve){
+ hex=HEX.test(hex)?hex:"#9b315b";
+ const skin="#f3d2c4",acc="#f0cf80",L=SLEEVE[sleeve]??28;
+ const puff=style==="Puff sleeve"||sleeve==="Puff";
+ const st=`fill="${hex}" stroke="#35252d" stroke-opacity=".3" stroke-width="2" stroke-linejoin="round"`;
+ let sl="";
+ if(puff){
+  sl=`<ellipse cx="102" cy="78" rx="22" ry="24" ${st}/><ellipse cx="218" cy="78" rx="22" ry="24" ${st}/>`;
+ }else if(L>0){
+  const left=`M126 56 L98 68 L${94-L*0.08} ${68+L} L121 ${66+L*0.9} Z`;
+  const right=`M194 56 L222 68 L${226+L*0.08} ${68+L} L199 ${66+L*0.9} Z`;
+  sl=`<path d="${left}" ${st}/><path d="${right}" ${st}/>`;
+ }
+ const body=`<path d="M124 56 L196 56 L200 154 L120 154 Z" ${st}/>`;
+ const hem=`<path d="M121 150 H199" stroke="${acc}" stroke-width="3" fill="none"/>`;
+ const neck=NECK[style]??NECK.Other;
+ const cut=neck?`<path d="${neck}" fill="${skin}" stroke="${acc}" stroke-width="3" stroke-linejoin="round"/>`:"";
+ let extra="";
+ if(style==="High neck")extra=`<rect x="147" y="48" width="26" height="12" rx="4" ${st}/>`;
+ if(style==="Keyhole")extra=`<ellipse cx="160" cy="92" rx="5" ry="8" fill="${skin}" stroke="${acc}" stroke-width="2"/>`;
+ if(style==="Collar neck")extra=`<path d="M146 54 L160 84 L136 74 Z" ${st}/><path d="M174 54 L160 84 L184 74 Z" ${st}/>`;
+ if(style==="Princess cut")extra=`<path d="M146 90 Q142 120 140 154 M174 90 Q178 120 180 154" stroke="${acc}" stroke-width="2" fill="none"/>`;
+ const svg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 180"><rect width="320" height="180" fill="#fdf2f6"/><circle cx="268" cy="36" r="44" fill="${hex}" opacity=".12"/><circle cx="52" cy="146" r="52" fill="${acc}" opacity=".2"/>${sl}${body}${cut}${extra}${hem}</svg>`;
+ return "data:image/svg+xml;charset=utf-8,"+encodeURIComponent(svg);
+}
+
+/* ---------- Starter designs (common real blouse styles) ---------- */
+const rows=[
+["Boat neck with back dori","Boat neck","Elbow","Wedding","Maroon","#7b1e2e","Raw silk","Wide boat neckline, deep back with braided dori and latkans. Gold piping at neck and sleeve edge."],
+["Princess cut silk blouse","Princess cut","Elbow","Traditional","Peacock blue","#176c87","Pure silk","Vertical princess seams for a close fit; contrast zari border on sleeves. Suits Kanjivaram sarees."],
+["Puff sleeve cotton silk","Puff sleeve","Puff","Festive","Mustard","#d4a017","Cotton silk","Gathered puff sleeves with small mirror work on the border."],
+["Sweetheart bridal blouse","Sweetheart","Sleeveless","Wedding","Red","#b3122b","Velvet","Padded sweetheart neckline, zardozi embroidery on the front yoke, hooks at the side."],
+["Classic V neck","V neck","Three-quarter","Everyday","Bottle green","#1f5c43","Cotton","Simple deep V front, plain back with a small tie. Easy for daily wear."],
+["Square neck with piping","Square neck","Elbow","Traditional","Emerald","#176b52","Banarasi","Square front and back neck with contrast gold piping."],
+["High neck brocade","High neck","Full","Wedding","Antique gold","#b18a45","Brocade","Mandarin-style high neck with covered buttons at the back."],
+["Keyhole back blouse","Keyhole","Short","Festive","Coral","#e97865","Georgette","Round neck with a small teardrop keyhole at the front and a pearl button."],
+["Halter neck party blouse","Halter","Sleeveless","Party","Black","#29242b","Crepe","Halter strap tied at the neck, open shoulders, side zip."],
+["Collar neck office blouse","Collar neck","Three-quarter","Office","Ivory","#eee3ce","Linen blend","Shirt-style collar with covered front buttons. Pairs with cotton and linen sarees."],
+["Backless tie-up blouse","Backless","Cap","Party","Plum","#6b2d5c","Satin","Open back with adjustable ties and tassels; lined front."],
+["Round neck lace sleeves","Round neck","Short","Everyday","Powder blue","#9ec5e8","Cotton","Simple round neck with lace trim along the sleeve edge."],
+["Boat neck Banarasi","Boat neck","Three-quarter","Traditional","Teal","#167978","Banarasi","Woven motifs with plain gold piping at the neckline."],
+["Sweetheart organza puff","Sweetheart","Puff","Festive","Lavender","#a89bd4","Organza","Soft gathered sleeves with cotton lining underneath."],
+["V neck tie-back","V neck","Elbow","Wedding","Maroon","#6e1d2b","Silk","Deep V front, braided dori tie at the back, latkans."],
+["Princess cut cotton","Princess cut","Elbow","Office","Navy","#1e3557","Cotton","Tailored fit with princess seams and light lining."],
+["Square neck temple border","Square neck","Elbow","Traditional","Saffron","#e87a1e","Silk","Temple-style border running along the sleeve hem."],
+["Keyhole velvet","Keyhole","Three-quarter","Wedding","Burgundy","#5e192d","Velvet","Rich velvet with a back keyhole and clasp."]
+];
+const extraRows=[["Antique gold temple zari", "Boat neck", "Elbow", "Wedding", "Antique gold", "#b18a45", "Kanjivaram silk", "Temple zari border with antique gold threadwork and a neat deep-U back."], ["Blush pink pearl net", "Sweetheart", "Short", "Party", "Blush pink", "#e8aebd", "Net", "Pearl edging, sheer net sleeves and a soft sweetheart front."], ["Royal blue maggam work", "Square neck", "Elbow", "Wedding", "Royal blue", "#174b9a", "Silk", "Dense maggam floral work with a tie-back and padded cups."], ["Emerald velvet scallop", "Sweetheart", "Puff", "Festive", "Emerald", "#176b52", "Velvet", "Scalloped neckline with gold beadwork and gathered sleeves."], ["Ivory chikankari classic", "Round neck", "Three-quarter", "Traditional", "Ivory", "#eee3ce", "Cotton", "Fine white-on-white chikankari with a modest closed back."], ["Wine cutwork bridal", "High neck", "Full", "Wedding", "Wine", "#72243c", "Velvet", "Cutwork yoke, stone highlights and covered back buttons."], ["Mustard mirror-work", "V neck", "Elbow", "Festive", "Mustard", "#d4a017", "Cotton silk", "Mirror-work motifs with contrast piping and a dori back."], ["Peacock teal brocade", "Boat neck", "Elbow", "Traditional", "Peacock teal", "#167978", "Brocade", "Woven brocade with a broad boat neck and gold sleeve edging."], ["Coral floral organza", "Square neck", "Puff", "Party", "Coral", "#e97865", "Organza", "Floral applique with soft puff sleeves and lining."], ["Black sequin cocktail", "Halter", "Sleeveless", "Party", "Black", "#29242b", "Crepe", "All-over sequin detail with a clean halter tie."], ["Lavender bow-back", "Round neck", "Cap", "Party", "Lavender", "#a89bd4", "Satin", "Round front with an oversized bow and open back."], ["Red bridal zardozi", "Sweetheart", "Elbow", "Wedding", "Red", "#b3122b", "Raw silk", "Heavy zardozi embroidery, gold edging and a deep U back."], ["Mint pastel lace", "Boat neck", "Short", "Everyday", "Mint", "#a8cdbb", "Cotton", "Light lace insert and clean piping for a soft everyday look."], ["Navy collar-button", "Collar neck", "Three-quarter", "Office", "Navy", "#1e3557", "Linen blend", "Shirt collar, fabric-covered buttons and neat princess seams."], ["Peach tissue dori", "Square neck", "Cap", "Festive", "Peach", "#e8a080", "Tissue", "Square back with slim dori strings and tassel ends."], ["Magenta zari round neck", "Round neck", "Elbow", "Traditional", "Magenta", "#b51e67", "Silk", "Gold zari neckline and sleeve border with tie-back detail."], ["Silver grey shimmer", "V neck", "Sleeveless", "Party", "Silver", "#aaa9ad", "Satin", "Subtle shimmer with a deep V and slim shoulder straps."], ["Bottle green leaf print", "Round neck", "Short", "Everyday", "Bottle green", "#1f5c43", "Cotton", "Printed leaf motif, simple round neck and piping."], ["Turquoise beadwork", "Keyhole", "Elbow", "Festive", "Turquoise", "#168b91", "Georgette", "Beaded keyhole detail with matching sleeve embellishment."], ["Maroon corset fit", "Sweetheart", "Sleeveless", "Wedding", "Maroon", "#7b1e2e", "Raw silk", "Structured corset seams with antique gold handwork."], ["Cream puff-sleeve silk", "Boat neck", "Puff", "Traditional", "Cream", "#e9ddc8", "Silk", "Minimal silk blouse with dramatic puff sleeves and piping."], ["Purple peacock maggam", "High neck", "Elbow", "Wedding", "Purple", "#663b78", "Silk", "Peacock maggam motif at the back with ornate border."], ["Yellow haldi floral", "Square neck", "Short", "Festive", "Yellow", "#e6bf32", "Cotton silk", "Bright floral embroidery with a comfortable square neckline."], ["Rose gold sequin back", "Deep V", "Elbow", "Party", "Rose gold", "#b87970", "Net", "Sheer embellished back panel with rose-gold sequins."], ["Rust ajrakh print", "Round neck", "Three-quarter", "Everyday", "Rust", "#a64b32", "Cotton", "Ajrakh-inspired print, contrast sleeve cuffs and simple back."], ["Saffron temple border", "Square neck", "Elbow", "Traditional", "Saffron", "#e87a1e", "Silk", "Temple border at sleeves and neckline with matching piping."], ["Powder blue lace sleeve", "V neck", "Short", "Everyday", "Powder blue", "#9ec5e8", "Cotton", "Lace sleeve insert with a clean V front."], ["Black velvet keyhole", "Keyhole", "Full", "Wedding", "Black", "#29242b", "Velvet", "Small back keyhole with a jeweled clasp and full sleeves."], ["Fuchsia tassel dori", "Boat neck", "Elbow", "Festive", "Fuchsia", "#d62978", "Silk", "Open U-back tied with colourful tassels and gold edging."], ["Beige linen minimal", "Collar neck", "Three-quarter", "Office", "Beige", "#c9b99e", "Linen", "Minimal shirt-style blouse with a concealed button placket."], ["Aqua scallop sleeve", "Sweetheart", "Cap", "Party", "Aqua", "#72c7c3", "Georgette", "Scalloped sleeve edges and delicate bead accents."], ["Copper brocade high neck", "High neck", "Full", "Wedding", "Copper", "#a65e3b", "Brocade", "High collar with antique buttons and woven copper motifs."], ["White chikankari puff", "Round neck", "Puff", "Everyday", "White", "#f2eee8", "Cotton", "Light chikankari flowers with gathered puff sleeves."], ["Indigo mirror-work back", "V neck", "Elbow", "Festive", "Indigo", "#344b86", "Cotton", "Mirror-work medallions arranged around a deep back cut."], ["Champagne pearl collar", "Collar neck", "Short", "Party", "Champagne", "#d8c3a1", "Satin", "Pearl-trimmed collar with a softly structured fit."], ["Olive raw-silk princess", "Princess cut", "Elbow", "Traditional", "Olive", "#687342", "Raw silk", "Princess seams with a subtle antique-gold sleeve border."], ["Peach floral tie-back", "Round neck", "Cap", "Festive", "Peach", "#e8a080", "Organza", "Floral embroidery and delicate tie-back strings."], ["Ruby stone-work blouse", "Sweetheart", "Elbow", "Wedding", "Ruby red", "#a31635", "Velvet", "Stone-work neckline with dense bridal embroidery."], ["Sea green cut-out back", "Boat neck", "Three-quarter", "Party", "Sea green", "#4c9b8b", "Crepe", "Geometric back cut-out with slim fabric straps."], ["Lilac satin off-shoulder", "Off-shoulder", "Sleeveless", "Party", "Lilac", "#b9a0d1", "Satin", "Off-shoulder neckline with a clean fitted bodice."], ["Gold tissue cape sleeve", "High neck", "Cape", "Wedding", "Gold", "#c5a15a", "Tissue", "Sheer cape sleeves with delicate zari edging."], ["Navy velvet button-back", "Boat neck", "Full", "Wedding", "Navy", "#1e3557", "Velvet", "Covered back buttons and slim gold piping."], ["Pink floral printed", "Square neck", "Short", "Everyday", "Pink", "#d98ba5", "Cotton", "Small floral print with a square neckline and plain back."], ["Teal bead fringe", "Halter", "Sleeveless", "Party", "Teal", "#167978", "Georgette", "Beaded fringe along the neckline with a tie fastening."], ["Ivory gold gota-patti", "Round neck", "Elbow", "Festive", "Ivory", "#eee3ce", "Silk cotton", "Gota-patti floral accents with a gold sleeve border."], ["Plum velvet sweetheart", "Sweetheart", "Puff", "Wedding", "Plum", "#6b2d5c", "Velvet", "Sweetheart front, puff sleeves and antique zari detailing."], ["Grey silver threadwork", "V neck", "Three-quarter", "Party", "Grey", "#8a8991", "Georgette", "Silver thread embroidery with a sheer sleeve finish."], ["Green kanjeevaram contrast", "Boat neck", "Elbow", "Traditional", "Parrot green", "#4d8a43", "Kanjeevaram silk", "Contrast blouse with woven border matching the saree."], ["Orange bandhani print", "Round neck", "Short", "Festive", "Orange", "#df762e", "Cotton silk", "Bandhani-inspired print with a simple tie-back."], ["Burgundy sheer back", "High neck", "Full", "Wedding", "Burgundy", "#5e192d", "Net", "Illusion net back with pearl and bead embroidery."], ["Pastel mint sweetheart", "Sweetheart", "Sleeveless", "Engagement", "Pastel mint", "#b9d8c9", "Satin", "Minimal sweetheart neckline with a delicate back bow."], ["Royal purple brocade", "Square neck", "Elbow", "Traditional", "Royal purple", "#58346e", "Brocade", "Woven floral brocade with a broad square back."], ["Red elbow sleeve classic", "Round neck", "Elbow", "Traditional", "Red", "#b3122b", "Cotton silk", "Classic round neck with gold piping and a neat hook closure."], ["Sky blue pearl keyhole", "Keyhole", "Short", "Party", "Sky blue", "#83b8dc", "Georgette", "Pearl-framed keyhole with a tiny back button."], ["Black lace full sleeve", "V neck", "Full", "Party", "Black", "#29242b", "Lace", "Full lace sleeves and a simple satin-lined bodice."]];
+const PHOTO_BANK=["https://monamaar.com/cdn/shop/files/IMG-20240922-WA0506_855e7377-9459-4e6a-ad4f-3e6ff3859698.png?v=1767260404", "https://anjumodi.com/cdn/shop/files/2_13762dd3-76ac-427e-a502-a38e6557c54a_1200x1200.jpg?v=1716006748", "https://sunasa.in/cdn/shop/files/54801312766_e3484cca26_o_1445x.webp?v=1758538056", "https://images.cbazaar.com/images/prd_img_b/pink-banarasi-silk-embroidered-and-sequins-beads-thread-work-saree-sascc3895sa347-b.jpg", "https://i.etsystatic.com/47445092/r/il/04b61a/7874692290/il_fullxfull.7874692290_duur.jpg", "https://www.sarisandthings.com/cdn/shop/products/KP-230.ELB_MAGENTA_HB_720x720.jpg?v=1647630494", "https://i.pinimg.com/736x/8b/90/d4/8b90d40fc6fd0848d3afa0e6f4f3ba60.jpg"];
+const FAVS=[0,3,7,13];
+const allRows=[...rows,...extraRows];
+function distinctPhoto(id,name,style){
+ const terms=(String(name)+" "+String(style)).toLowerCase().replace(/[^a-z0-9 ]/g," ").trim().split(/\s+/).slice(0,5).join(",");
+ return ""; // Never show a broken third-party placeholder; add a real photo per design.
+}
+const seed=allRows.map((r,i)=>({id:i+1,name:r[0],style:r[1],sleeve:r[2],occasion:r[3],color:r[4],hex:r[5],fabric:r[6],notes:r[7],price:"",favorite:FAVS.includes(i),photo:distinctPhoto(i+1,r[0],r[1])}));
+
+/* ---------- State and storage ---------- */
+let designs=[],nextId=100,editing=null,favOnly=false,photoData="";
+let sections=["Blouse"];
+try{
+ const current=localStorage.getItem(KEY);
+ const s=JSON.parse(current||localStorage.getItem("blouseAtelierV3"));
+ if(s&&Array.isArray(s.designs)){
+  designs=s.designs;nextId=s.nextId||100;
+  sections=Array.isArray(s.sections)&&s.sections.length?s.sections:["Blouse"];
+  // One distinct photo URL per starter design; preserve photos uploaded by the tailor.
+  designs.forEach(d=>{
+   if(d.id<=73 && (!d.photo || PHOTO_BANK.includes(d.photo) || d.photo.startsWith("https://loremflickr.com/"))){
+    const starter=seed.find(x=>x.id===d.id);
+    if(starter)d.photo="";
+   }
+  });
+  if(!current){
+   const existing=new Set(designs.map(d=>d.name));
+   seed.slice(18).filter(d=>!existing.has(d.name)).forEach(d=>designs.push({...d,id:nextId++}));
+  }
+ }else{designs=seed.map(x=>({...x,section:"Blouse"}));nextId=100}
+}catch(e){designs=seed.map(x=>({...x,section:"Blouse"}));nextId=100}
+
+function save(){
+ try{localStorage.setItem(KEY,JSON.stringify({designs,nextId,sections}))}
+ catch(e){alert("Storage is full. Use smaller photos, or export your designs.")}
+}
+function esc(s=""){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function imgFor(d){
+ // Prefer a photo uploaded for this design; otherwise load its bundled WebP file.
+ if(d.photo) return d.photo;
+ if(Number.isInteger(Number(d.id)) && Number(d.id)>=1 && Number(d.id)<=50){
+   return `images/blouse-${String(Number(d.id)).padStart(2,"0")}.webp`;
+ }
+ return "";
+}
+
+/* ---------- Render ---------- */
+function render(){
+ $("total").textContent=designs.length;
+ $("favCount").textContent=designs.filter(d=>d.favorite).length;
+ $("colorCount").textContent=new Set(designs.map(d=>(d.color||"").toLowerCase())).size;
+ const style=$("styleFilter"),color=$("colorFilter"),section=$("sectionFilter"),sv=style.value,cv=color.value,secv=section.value;
+ section.innerHTML='<option value="">All sections</option>'+sections.map(x=>`<option value="${esc(x)}">${esc(x)}</option>`).join(""); section.value=secv;
+ $("dsection").innerHTML=sections.map(x=>`<option value="${esc(x)}">${esc(x)}</option>`).join("");
+ style.innerHTML='<option value="">All styles</option>'+[...new Set(designs.map(d=>d.style))].sort().map(x=>`<option>${esc(x)}</option>`).join("");
+ color.innerHTML='<option value="">All colours</option>'+[...new Set(designs.map(d=>d.color))].sort().map(x=>`<option>${esc(x)}</option>`).join("");
+ style.value=sv;color.value=cv;
+ const q=$("search").value.toLowerCase();
+ let arr=designs.filter(d=>(!q||[d.name,d.style,d.sleeve,d.color,d.fabric,d.notes,d.occasion].join(" ").toLowerCase().includes(q))&&(!sv||d.style===sv)&&(!cv||d.color===cv)&&(!secv||(d.section||"Blouse")===secv)&&(!favOnly||d.favorite));
+ const sort=$("sort").value;
+ if(sort==="name")arr.sort((a,b)=>a.name.localeCompare(b.name));
+ if(sort==="color")arr.sort((a,b)=>a.color.localeCompare(b.color)||a.name.localeCompare(b.name));
+ if(sort==="favorites")arr.sort((a,b)=>Number(b.favorite)-Number(a.favorite));
+ $("shown").textContent=`Showing ${arr.length} of ${designs.length}`;
+ $("collection").innerHTML=arr.length?arr.map(d=>`<article class="card"><div class="visual">${imgFor(d)?`<img src="${esc(imgFor(d))}" data-photo-id="${d.id}" loading="lazy" decoding="async" alt="${esc(d.name)}" tabindex="0" role="button" aria-label="View ${esc(d.name)} full screen" onerror="this.remove();this.parentElement.classList.add('no-photo')">`:`<div class="photo-empty"><span>✦</span><b>Photo not added</b><small>Edit this design to upload its real reference photo</small></div>`}<span class="tag">${esc(d.section||"Blouse")} · ${esc(d.occasion||"Design")}</span><button class="heart" title="Toggle favourite" data-fav="${d.id}">${d.favorite?"♥":"♡"}</button></div><div class="cardbody"><h3>${esc(d.name)}</h3><div class="meta">${esc(d.style)} · ${esc(d.sleeve)} sleeve</div><div class="swatches"><span class="swatch" style="background:${HEX.test(d.hex)?d.hex:"#ccc"}"></span><span class="meta">${esc(d.color)}${d.fabric?" · "+esc(d.fabric):""}</span></div>${d.notes?`<p class="notes">${esc(d.notes)}</p>`:""}${d.price?`<p class="meta">Estimated tailoring: ₹${Number(d.price).toLocaleString("en-IN")}</p>`:""}<div class="cardfoot"><button class="soft" data-edit="${d.id}">Edit</button><button class="soft" data-copy="${d.id}">Duplicate</button><button class="danger" data-delete="${d.id}">Delete</button></div></div></article>`).join(""):'<div class="empty">No matching designs. Try clearing filters or add a new design.</div>';
+}
+
+/* ---------- Add / edit ---------- */
+function openEditor(d=null){
+ editing=d?d.id:null;
+ photoData=d&&d.photo&&!/^https?:/i.test(d.photo)?d.photo:"";
+ $("modalTitle").textContent=d?"Edit design":"Add a design";
+ const map={dname:"name",dsection:"section",dstyle:"style",dsleeve:"sleeve",doccasion:"occasion",dcolor:"color",dhex:"hex",dfabric:"fabric",dprice:"price",dnotes:"notes"};
+ Object.entries(map).forEach(([el,k])=>{$(el).value=d?(d[k]??(el==="dsection"?"Blouse":"")):(el==="dhex"?"#9b315b":el==="dsection"?"Blouse":"")});
+ $("dphoto").value="";
+ $("dphotourl").value=d&&/^https?:/i.test(d.photo||"")?d.photo:"";
+ $("editor").showModal();
+}
+$("addBtn").onclick=()=>openEditor();
+$("cancelBtn").onclick=()=>$("editor").close();
+$("designForm").onsubmit=e=>{
+ e.preventDefault();
+ const url=$("dphotourl").value.trim();
+ const d={
+  id:editing??nextId++,
+  name:$("dname").value.trim(),section:$("dsection").value||"Blouse",style:$("dstyle").value,sleeve:$("dsleeve").value,occasion:$("doccasion").value,
+  color:$("dcolor").value.trim(),hex:$("dhex").value,fabric:$("dfabric").value.trim(),price:$("dprice").value,notes:$("dnotes").value.trim(),
+  photo:/^https?:\/\//i.test(url)?url:photoData,
+  favorite:editing?designs.find(x=>x.id===editing).favorite:false
+ };
+ designs=editing?designs.map(x=>x.id===editing?d:x):[d,...designs];
+ save();$("editor").close();render();
+};
+$("dphoto").onchange=e=>{
+ const f=e.target.files[0];if(!f)return;
+ if(!f.type.startsWith("image/")){alert("Please choose an image file.");e.target.value="";return}
+ const r=new FileReader();r.onload=()=>{
+  const source=new Image();source.onload=()=>{
+   const scale=Math.min(1,1200/Math.max(source.width,source.height));
+   const canvas=document.createElement("canvas");canvas.width=Math.round(source.width*scale);canvas.height=Math.round(source.height*scale);
+   canvas.getContext("2d").drawImage(source,0,0,canvas.width,canvas.height);
+   photoData=canvas.toDataURL("image/webp",0.78);$("dphotourl").value="";
+  };source.onerror=()=>alert("Could not read that image. Please try another photo.");source.src=r.result;
+ };r.readAsDataURL(f);
+};
+
+/* ---------- Card buttons ---------- */
+$("collection").onclick=e=>{
+ const b=e.target.closest("button");if(!b)return;
+ const id=Number(b.dataset.fav||b.dataset.edit||b.dataset.copy||b.dataset.delete),d=designs.find(x=>x.id===id);
+ if(!d)return;
+ if(b.dataset.fav){d.favorite=!d.favorite;save();render()}
+ if(b.dataset.edit)openEditor(d);
+ if(b.dataset.copy){designs.unshift({...d,id:nextId++,name:d.name+" (copy)",favorite:false});save();render()}
+ if(b.dataset.delete&&confirm(`Delete "${d.name}" from your book?`)){designs=designs.filter(x=>x.id!==id);save();render()}
+};
+
+/* ---------- Filters, theme, backup ---------- */
+["search","sectionFilter","styleFilter","colorFilter","sort"].forEach(id=>$(id).oninput=render);
+$("favFilter").onclick=()=>{favOnly=!favOnly;$("favFilter").textContent=favOnly?"♥ Favourites only":"♡ Favourites";render()};
+$("clearFilters").onclick=()=>{$("search").value="";$("styleFilter").value="";$("colorFilter").value="";$("sectionFilter").value="";$("sort").value="recent";favOnly=false;$("favFilter").textContent="♡ Favourites";render()};
+$("themeBtn").onclick=()=>document.body.classList.toggle("dark");
+$("exportBtn").onclick=()=>{
+ const blob=new Blob([JSON.stringify({designs,nextId,sections},null,2)],{type:"application/json"}),a=document.createElement("a");
+ a.href=URL.createObjectURL(blob);a.download="blouse-atelier-backup.json";a.click();URL.revokeObjectURL(a.href);
+};
+$("importBtn").onclick=()=>$("importFile").click();
+$("importFile").onchange=e=>{
+ const f=e.target.files[0];if(!f)return;
+ const r=new FileReader();
+ r.onload=()=>{
+  try{
+   const o=JSON.parse(r.result);if(!Array.isArray(o.designs))throw Error();
+   if(confirm("Import designs? This will replace your current collection.")){designs=o.designs;nextId=o.nextId||100;if(Array.isArray(o.sections)&&o.sections.length)sections=o.sections;save();render()}
+  }catch(err){alert("That file doesn't look like a Blouse Atelier backup.")}
+ };
+ r.readAsText(f);e.target.value="";
+};
+
+// Add a reusable collection section (e.g. Lady Suit, Lehenga, Kidswear).
+$("addSectionBtn").onclick=()=>{
+ const name=prompt("Name your new section (for example: Lady Suit, Lehenga, Kidswear):");
+ if(!name)return;
+ const clean=name.trim().replace(/\s+/g," ");
+ if(!clean)return;
+ if(sections.some(x=>x.toLowerCase()===clean.toLowerCase())){alert("That section already exists.");return;}
+ sections.push(clean);save();render();$("sectionFilter").value=clean;render();
+};
+// Tap/click a card photo to open a full-screen viewer.
+function showFullPhoto(img){
+ if(!img||!img.src)return;
+ $("lightboxImg").src=img.src;
+ $("lightboxImg").alt=img.alt||"Design photo";
+ $("lightboxCaption").textContent=img.alt||"";
+ $("lightbox").showModal();
+}
+$("collection").addEventListener("click",e=>{
+ const img=e.target.closest("img[data-photo-id]");
+ if(img)showFullPhoto(img);
+});
+$("collection").addEventListener("keydown",e=>{
+ if((e.key==="Enter"||e.key===" ")&&e.target.matches("img[data-photo-id]")){e.preventDefault();showFullPhoto(e.target);}
+});
+$("lightboxClose").onclick=()=>$("lightbox").close();
+$("lightbox").addEventListener("click",e=>{if(e.target===$("lightbox"))$("lightbox").close();});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("lightbox").open)$("lightbox").close();});
+
+render();
+</script>
+</body>
+</html>
